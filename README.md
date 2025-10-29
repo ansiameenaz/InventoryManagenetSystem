@@ -4,9 +4,9 @@ A simple yet full-featured inventory management system built with a .NET Minimal
 
 ## Screenshot
 
-*You should take a screenshot of your running application and save it as `screenshot.png` in this folder. It will then appear here automatically.*
 
-![A screenshot of the application's dashboard, showing the form and the inventory list.](./screenshot.png)
+
+![A screenshot of the application's dashboard, showing the form and the inventory list.](./page.png)
 
 ## Features
 
@@ -71,19 +71,13 @@ You must have the **.NET 6.0 SDK** (or newer) installed on your computer.
 The application will now be running in your browser, fully connected to your backend.
 
 ## Folder Structure
-You don't need to "add" the folder structure itself; you just need to add the text that describes it to your README.md file.
-
-Here is the markdown code for that section. Just copy this block and paste it into your README.md file, probably after the "Getting Started" section.
-
-Markdown
-
-## Folder Structure
 
 InventoryMS/ 
 ├── InventoryAPI/ # .NET Minimal API Backend 
 │ 
 ├── Program.cs # All backend logic, API endpoints, and DB context 
-│ ├── inventory.db # SQLite database file (created on run) │ └── InventoryAPI.csproj 
+│ ├── inventory.db # SQLite database file (created on run) 
+│ └── InventoryAPI.csproj 
 │ └── frontend/ # Frontend UI 
 ├── index.html # Main HTML page (the UI) 
 ├── style.css # All styles 
