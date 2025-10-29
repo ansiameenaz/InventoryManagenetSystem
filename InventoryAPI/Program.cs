@@ -1,42 +1,11 @@
 // Program.cs
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
-// --- 1. Database Model Definitions ---
-// These classes define your database tables.
-
-public class Product
-{
-    public int Id { get; set; }
-    [Required]
-    public string Sku { get; set; } = string.Empty;
-    [Required]
-    public string Name { get; set; } = string.Empty;
-    public string Category { get; set; } = string.Empty;
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
-    public string Location { get; set; } = string.Empty;
-}
-
-public class AuditLog
-{
-    public int Id { get; set; }
-    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-    public string Action { get; set; } = string.Empty; // e.g., "ADD", "UPDATE", "DELETE"
-    public string Details { get; set; } = string.Empty; // e.g., "Added Product SKU-123"
-}
-
-// --- 2. The Database Context ---
-// This class is the "bridge" between your code and the SQLite database.
-public class InventoryDbContext : DbContext
-{
-    public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) { }
-    
-    public DbSet<Product> Products { get; set; }
-    public DbSet<AuditLog> AuditLogs { get; set; }
-}
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 // --- 3. Main Application Setup ---
+// ALL THIS CODE MUST COME BEFORE THE CLASS DEFINITIONS
 var builder = WebApplication.CreateBuilder(args);
 
 // Add the SQLite database connection. It will create a file named "inventory.db".
@@ -44,11 +13,9 @@ builder.Services.AddDbContext<InventoryDbContext>(opt =>
     opt.UseSqlite("Data Source=inventory.db"));
 
 // **Requirement: Error Handling**
-// This provides developer-level error pages.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // **Requirement: Integration/API Endpoints**
-// This enables the API explorer (used by tools like Swagger/Postman).
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -154,6 +121,35 @@ using (var scope = app.Services.CreateScope())
 
 app.Run();
 
-internal class WebApplication
+
+// --- 1. Database Model Definitions ---
+// ALL THESE CLASSES MUST BE AT THE BOTTOM OF THE FILE
+public class Product
 {
+    public int Id { get; set; }
+    [Required]
+    public string Sku { get; set; } = string.Empty;
+    [Required]
+    public string Name { get; set; } = string.Empty;
+    public string Category { get; set; } = string.Empty;
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+    public string Location { get; set; } = string.Empty;
+}
+
+public class AuditLog
+{
+    public int Id { get; set; }
+    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public string Action { get; set; } = string.Empty; // e.g., "ADD", "UPDATE", "DELETE"
+    public string Details { get; set; } = string.Empty; // e.g., "Added Product SKU-123"
+}
+
+// --- 2. The Database Context ---
+public class InventoryDbContext : DbContext
+{
+    public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) { }
+    
+    public DbSet<Product> Products { get; set; }
+    public DbSet<AuditLog> AuditLogs { get; set; }
 }

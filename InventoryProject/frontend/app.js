@@ -4,7 +4,7 @@
 // Check your terminal from Step 7.
 // It will say "Now listening on: http://localhost:XXXX".
 // Update the port number (XXXX) below to match.
-const API_BASE_URL = 'http://localhost:5123'; // <-- UPDATE THIS PORT
+const API_BASE_URL = 'http://localhost:5270'; // <-- UPDATE THIS PORT
 
 // Get references to all our HTML elements
 const form = document.getElementById('item-form');
@@ -189,3 +189,4 @@ function clearForm() {
     itemIdInput.value = '';
     submitButton.textContent = 'Add Item';
     submitButton.style.backgroundColor = '#3498db'; // Reset to blue
+}
